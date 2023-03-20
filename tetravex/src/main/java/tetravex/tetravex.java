@@ -5,7 +5,7 @@ public class tetravex {
     public static void main(String[] args) throws InterruptedException {
 
         ConsoleUI consoleUI = new ConsoleUI();
-        int matrixsize = 10;
+        int matrixsize = 4;
         consoleUI.newGame(matrixsize);
 
 

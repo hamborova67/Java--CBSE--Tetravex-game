@@ -60,9 +60,11 @@ public class StoreField extends Field{
         tiles=result;
     }
 
+    @Override
     public Tile getTile(int i, int j) {
         return tiles[i][j];
     }
+
     public void setTile(int i, int j, Tile tile) {
         tiles[i][j] = tile ;
     }

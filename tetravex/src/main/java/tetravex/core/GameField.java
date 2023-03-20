@@ -34,6 +34,7 @@ public class GameField extends Field {
         return true;
     }
 
+    @Override
     public Tile getTile(int i, int j) {
         return tiles[i][j];
     }

@@ -1,4 +1,5 @@
 package tetravex.consoleUI;
+import tetravex.core.Field;
 import tetravex.core.GameField;
 import tetravex.core.StoreField;
 import tetravex.core.Tile;
@@ -25,7 +26,7 @@ public class ConsoleUI {
     public void newGame(int size){
         source = new StoreField(size);
         source.generate(size);
-        source.getShuffledTiles();
+        //source.getShuffledTiles();
         destination = new GameField(size);
         destination.generate(size);
         matrixsize = size;
@@ -91,79 +92,52 @@ public class ConsoleUI {
         System.out.println();
     }
 
+    public void drawCol(int row , Field field, int smer){
+
+        System.out.print("|");
+        for(int col = 0;col< matrixsize;col++)
+        {
+            if(smer!=2){
+                System.out.print("  ");
+            }
+
+            if(field.getTile(row,col).getNorth()==10) {
+                if(smer==2){
+                    System.out.print(ANSI_RESET+"x   x|");
+                }else {
+                    System.out.print(ANSI_RESET + "x  |");
+                }
+
+            }else {
+                if(smer==1){
+                    System.out.print(colorNumber(field.getTile(row,col).getNorth())+field.getTile(row,col).getNorth()+ANSI_RESET+"  |");
+                }
+                if(smer==3){
+                    System.out.print(colorNumber(field.getTile(row, col).getSouth()) + field.getTile(row, col).getSouth() + ANSI_RESET + "  |");
+                }
+                if(smer==2){
+                    System.out.print(colorNumber(field.getTile(row, col).getWest()) + field.getTile(row, col).getWest() + "   ");
+                    System.out.print(colorNumber(field.getTile(row, col).getEast()) + field.getTile(row, col).getEast() + ANSI_RESET + "|");
+                }
+            }
+
+        }
+
+    }
+
     public void drawFields(){
         printLines();
-        for(int i = 0;i< matrixsize;i++)
+        for(int row = 0;row< matrixsize;row++)
         {
-            System.out.print("|");
-            for(int j = 0;j< matrixsize;j++)
-            {
-                System.out.print("  ");
-                if(source.getTile(i,j).getNorth()==10) {
-                    System.out.print(ANSI_RESET + "x  |");
-                }else {
-                    System.out.print(colorNumber(source.getTile(i,j).getNorth())+source.getTile(i,j).getNorth()+ANSI_RESET+"  |");
-                }
-            }
-            System.out.print("                        |");
-            for(int j = 0;j< matrixsize;j++)
-            {
-                System.out.print("  ");
-                if(destination.getTile(i,j).getNorth()==10){
-                    System.out.print(ANSI_RESET+"x  |");
-                }else {
-                    System.out.print(colorNumber(destination.getTile(i,j).getNorth())+destination.getTile(i,j).getNorth()+ANSI_RESET+"  |");
-                }
-            }
-            System.out.println();
-            System.out.print("|");
+            for(int smer=1;smer<=3;smer++){
+                drawCol(row,source,smer);
+                System.out.print("                        ");
+                drawCol(row, destination,smer);
+                System.out.println();
 
-            // FIRST NUMBER
-            for(int j = 0;j< matrixsize;j++)
-            {
-                if(source.getTile(i,j).getEast()==10){
-                    System.out.print(ANSI_RESET+"x   x|");
-                }else{
-                    System.out.print(colorNumber(source.getTile(i, j).getWest()) + source.getTile(i, j).getWest() + "   ");
-                    System.out.print(colorNumber(source.getTile(i, j).getEast()) + source.getTile(i, j).getEast() + ANSI_RESET + "|");
-                }
             }
-            System.out.print("                        |");
-
-            for(int j = 0;j< matrixsize;j++)
-            {
-                if(destination.getTile(i,j).getEast()==10){
-                    System.out.print(ANSI_RESET+"x   x|");
-                }else {
-                    System.out.print(colorNumber(destination.getTile(i, j).getWest()) + destination.getTile(i, j).getWest() + "   ");
-                    System.out.print(colorNumber(destination.getTile(i, j).getEast()) + destination.getTile(i, j).getEast() + ANSI_RESET + "|");
-                }
-            }
-            System.out.println();
-            System.out.print("|");
-
-            // second two rows
-
-            for(int j = 0;j< matrixsize;j++)
-            {
-                System.out.print("  ");
-                if(source.getTile(i,j).getSouth()==10) {
-                    System.out.print(ANSI_RESET + "x  |");
-                }else {
-                    System.out.print(colorNumber(source.getTile(i,j).getSouth())+source.getTile(i,j).getSouth()+ANSI_RESET+"  |");
-                }
-            }
-            System.out.print("                        |");
-            for(int j = 0;j< matrixsize;j++) {
-                System.out.print("  ");
-                if(destination.getTile(i,j).getSouth()==10) {
-                    System.out.print(ANSI_RESET + "x  |");
-                }else {
-                    System.out.print(colorNumber(destination.getTile(i, j).getSouth()) + destination.getTile(i, j).getSouth() + ANSI_RESET + "  |");
-                }
-            }
-            System.out.println();
             printLines();
+
         }
     }
 
