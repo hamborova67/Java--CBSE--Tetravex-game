@@ -1,4 +1,5 @@
 package tetravex.consoleUI;
+import sk.tuke.gamestudio.service.ScoreServiceJDBC;
 import tetravex.core.Field;
 import tetravex.core.GameField;
 import tetravex.core.StoreField;
@@ -24,6 +25,9 @@ public class ConsoleUI {
     }
 
     public void newGame(int size){
+        if(size<2){
+            return;
+        }
         source = new StoreField(size);
         source.generate(size);
         //source.getShuffledTiles();
@@ -32,7 +36,7 @@ public class ConsoleUI {
         matrixsize = size;
         play();
     }
-    public void switchTiles(){
+    public void switchTiles(int[] move){
         Tile pomTile;
         if(move ==  null ){
             System.out.println("Incorrect move.");
@@ -45,38 +49,50 @@ public class ConsoleUI {
 
     void play(){
         int input=0;
+        Scanner scanner  =  new Scanner(System.in);
         System.out.println("Hello!\nWelcome in game tetravex. Point of this game is that you have to match edges of the tiles.\n" +
                 "First field is your storage. Second field is your game board. Enjoy. :)\n");
         while (!destination.checkSolution()){
             drawFields();
             move = new int[4];
-            Scanner scanner  =  new Scanner(System.in);
-            System.out.println("What is your next move? (row,column of store field,row,column of game field)\nMove: ");
+            boolean chyba = false;
 
+            System.out.println("What is your next move? Example: 1 2 3 4 (row,column of store field,row,column of game field)\nMove: ");
+            input=0;
             for (int input_moves=0;input_moves<4;input_moves++){
 
-               go: try{
+                try{
                     input = scanner.nextInt();
 
                 }catch (Exception e){
-                    System.out.println("Invalid input. Try again: ");
-
+                    System.out.println("Try again from the start. You can use only numbers.");
+                    chyba=true;
                 }
-                while(!(input>0 && input<=matrixsize)) {
-                    System.out.println("Invalid input. Try again: ");
+
+                while(!(input>0 && input<=matrixsize) || chyba) {
+                    System.out.println("Invalid input. Try again (input "+(input_moves+1)+". number): ");
                     try{
+                        scanner  =  new Scanner(System.in);
                         input = scanner.nextInt();
+                        chyba =false;
                     }catch (Exception e){
-                        System.out.println("Invalid input. Try again: ");
+                        System.out.println("This is not correct move.");
+                        chyba=true;
                     }
                 }
-                move[input_moves]=input;
+                chyba=false;
+                move[input_moves]=(input-1);
             }
-            switchTiles();
+            switchTiles(move);
         }
         drawFields();
-        System.out.println("Congratulation! You are a winner. Do you want to play again? (y/n)");
-        //dorobit
+        System.out.println("Congratulation! You are a winner. Do you want to play again? If yes, write y or yes.");
+        String string_input = scanner.nextLine();
+
+        if(string_input.equals('y')){
+            play();
+        }
+
     }
 
     public void printLines(){
@@ -141,8 +157,6 @@ public class ConsoleUI {
         }
     }
 
-
-
     public String colorNumber(int number){
         switch (number){
             case 0: return BLUE;
@@ -158,5 +172,14 @@ public class ConsoleUI {
             default: return ANSI_RESET;
         }
 
+    }
+
+    public void printScore(){
+        ScoreServiceJDBC scoreServiceJDBC = new ScoreServiceJDBC();
+        var scores  = scoreServiceJDBC.getTopScores("tetravex");
+        for (int i=0;i< scores.size();i++){
+            var score = scores.get(i);
+            System.out.println(score.getPlayer()+" "+score.getPoints()+" "+score.getPlayedOn());
+        }
     }
 }

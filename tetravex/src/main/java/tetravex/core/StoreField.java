@@ -57,6 +57,11 @@ public class StoreField extends Field{
                 result[row_random][col_random] = temp;
             }
         }
+        GameField gameField = new GameField(matrixSize);
+        gameField.setTiles(result);
+        if(gameField.checkSolution()){
+            getShuffledTiles();
+        }
         tiles=result;
     }
 
@@ -67,5 +72,9 @@ public class StoreField extends Field{
 
     public void setTile(int i, int j, Tile tile) {
         tiles[i][j] = tile ;
+    }
+
+    public Tile[][] getTiles() {
+        return tiles;
     }
 }

@@ -8,8 +8,8 @@ public class CommentServiceJDBC implements CommentService{
 
     public static final String URL = "jdbc:postgresql://localhost/gamestudio";
     public static final String USER = "postgres";
-    public static final String PASSWORD = "postgres";
-    public static final String SELECT = "SELECT game, player, comment, commentedOn FROM comment WHERE game = ? ORDER BY points DESC LIMIT 10";
+    public static final String PASSWORD = "longboardOK";
+    public static final String SELECT = "SELECT game, player, comment, commentedOn FROM comment WHERE game = ? ";
     public static final String DELETE = "DELETE FROM comment";
     public static final String INSERT = "INSERT INTO comment (game, player, comment, commentedOn) VALUES (?, ?, ?, ?)";
     @Override
@@ -41,7 +41,7 @@ public class CommentServiceJDBC implements CommentService{
                 return comments;
             }
         } catch (SQLException e) {
-            throw new ScoreException("Problem selecting score", e);
+            throw new ScoreException("Problem selecting comments", e);
         }
     }
 

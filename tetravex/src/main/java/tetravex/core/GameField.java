@@ -29,6 +29,12 @@ public class GameField extends Field {
                 if(getTile(row,column).getSouth() !=  getTile(row+1,column).getNorth() ||  getTile(row,column).getSouth()==10){
                     return false;
                 }
+                if(getTile(size-1,column).getEast()==10){
+                    return false;
+                }
+            }
+            if(getTile(row,size-1).getEast()==10 || getTile(size-1,size-1).getEast()==10){
+                return false;
             }
         }
         return true;
@@ -44,5 +50,9 @@ public class GameField extends Field {
     }
     public void setTile(int i, int j, Tile tile) {
         tiles[i][j] = tile ;
+    }
+
+    public void setTiles(Tile[][] tiles) {
+        this.tiles = tiles;
     }
 }
