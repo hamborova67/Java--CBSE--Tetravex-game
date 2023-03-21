@@ -41,7 +41,7 @@ public class StoreFieldTests {
     @Test
     private void CheckTilesSwitch(){
         GameField gameField = new GameField(matrixsize);
-        ConsoleUI consoleUI = new ConsoleUI();
+        ConsoleUI consoleUI = new ConsoleUI(matrixsize);
         int[] move={0,0,0,0};
         for (int i=0;i<4;i++){
             int tile_position = randomGenerator.nextInt(1) + matrixsize ;
