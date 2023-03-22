@@ -70,6 +70,7 @@ public class GameField extends Field {
         }
     }
 
+
     @Override
     public Tile getTile(int i, int j) {
         if(tiles==null){
