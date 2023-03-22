@@ -5,10 +5,7 @@ import sk.tuke.gamestudio.entity.Score;
 import sk.tuke.gamestudio.service.CommentServiceJDBC;
 import sk.tuke.gamestudio.service.RatingServiceJDBC;
 import sk.tuke.gamestudio.service.ScoreServiceJDBC;
-import tetravex.core.Field;
-import tetravex.core.GameField;
-import tetravex.core.StoreField;
-import tetravex.core.Tile;
+import tetravex.core.*;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -38,7 +35,7 @@ public class ConsoleUI {
         }
         source = new StoreField(size);
         source.generate(size);
-        //source.getShuffledTiles();
+        source.getShuffledTiles();
         destination = new GameField(size);
         destination.generate(size);
         matrixsize = size;
@@ -46,8 +43,12 @@ public class ConsoleUI {
     }
     public void switchTiles(int[] move){
         Tile pomTile;
+        this.move =move;
         if(move ==  null ){
             System.out.println("Incorrect move.");
+            return;
+        }
+        if (source == null || destination==null) {
             return;
         }
         pomTile =   source.getTile(move[0],move[1]);
@@ -118,7 +119,7 @@ public class ConsoleUI {
      public void rateGame(){
         Scanner scanner;
         boolean mistake= false;
-        System.out.println("How would you rate tetravex game? (1 - 5 stars, where 5 is the BEST)\n Rate game:");
+        System.out.println("How would you rate tetravex game? (1 - 5 stars, where 5 is the BEST)\nRate game:");
         int rating = 0;
         while(!(rating>0 && rating<=5) || mistake) {
              try{
@@ -143,7 +144,6 @@ public class ConsoleUI {
 
      public void leaveComment(){
          Scanner scanner;
-         boolean mistake= false;
          System.out.println("LEAVE A  COMMENT: ");
          scanner  =  new Scanner(System.in);
          String comment = scanner.nextLine();
@@ -156,15 +156,15 @@ public class ConsoleUI {
 
 
      public void play(){
-        int input=0;
+        int input;
         int score = 100*matrixsize;
         Scanner scanner  =  new Scanner(System.in);
         System.out.println("Hello!\nWelcome in game tetravex. Point of this game is that you have to match edges of the tiles.\n" +
                 "First field is your storage. Second field is your game board. Enjoy. :)\n");
-        while (!destination.checkSolution()){
+        while (!destination.checkSolution() && destination.getGameFieldState()==GameFieldState.PLAYING){
             drawFields();
             move = new int[4];
-            boolean chyba = false;
+            boolean mistake = false;
 
             System.out.println("What is your next move? Example: 1 2 3 4 (row,column of store field,row,column of game field)\nMove: ");
             input=0;
@@ -175,21 +175,21 @@ public class ConsoleUI {
 
                 }catch (Exception e){
                     System.out.println("Try again from the start. You can use only numbers.");
-                    chyba=true;
+                    mistake=true;
                 }
 
-                while(!(input>0 && input<=matrixsize) || chyba) {
+                while(!(input>0 && input<=matrixsize) || mistake) {
                     System.out.println("Invalid input. Try again (input "+(input_moves+1)+". number): ");
                     try{
                         scanner  =  new Scanner(System.in);
                         input = scanner.nextInt();
-                        chyba =false;
+                        mistake =false;
                     }catch (Exception e){
                         System.out.println("This is not correct move.");
-                        chyba=true;
+                        mistake=true;
                     }
                 }
-                chyba=false;
+                mistake=false;
                 move[input_moves]=(input-1);
             }
             score=score-(2*matrixsize);
@@ -200,9 +200,16 @@ public class ConsoleUI {
         }
         drawFields();
         ScoreServiceJDBC scoreServiceJDBC = new ScoreServiceJDBC();
+
+        if(destination.getGameFieldState()== GameFieldState.SOLVED){
+            System.out.println("Congratulation! You are a winner.");
+        }
+        if(destination.getGameFieldState()==GameFieldState.FAILED){
+            System.out.println("Sorry. You loose. Maybe next time.");
+            score=0;
+        }
         Score score_to_table = new Score("tetravex",nickname,score,new Date());
         scoreServiceJDBC.addScore(score_to_table);
-        System.out.println("Congratulation! You are a winner.");
         gameMenu();
     }
 
@@ -287,20 +294,20 @@ public class ConsoleUI {
 
     public void printScores(){
         ScoreServiceJDBC scoreServiceJDBC = new ScoreServiceJDBC();
+        System.out.println();
         var scores  = scoreServiceJDBC.getTopScores("tetravex");
-        for (int i=0;i< scores.size();i++){
-            var score = scores.get(i);
-            System.out.println(score.getPlayer()+" "+score.getPoints()+" "+score.getPlayedOn());
+        for (Score score : scores) {
+            System.out.println(score.getPlayer() + " " + score.getPoints() + " " + score.getPlayedOn());
         }
         gameMenu();
     }
 
     public void printComments(){
+        System.out.println();
         CommentServiceJDBC commentServiceJDBC= new CommentServiceJDBC();
         var comments = commentServiceJDBC.getComments("tetravex");
-        for (int i=0;i< comments.size();i++){
-            var comment= comments.get(i);
-            System.out.println(comment.getPlayer()+" "+comment.getComment()+" "+comment.getCommentedOn());
+        for (Comment comment : comments) {
+            System.out.println(comment.getPlayer() + " " + comment.getComment() + " " + comment.getCommentedOn());
         }
         gameMenu();
     }

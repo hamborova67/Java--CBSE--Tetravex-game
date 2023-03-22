@@ -23,7 +23,7 @@ public class StoreFieldTests {
     }
     @Test
     public void minimumTiles(){
-        matrixsize = randomGenerator.nextInt(0) + 5;
+        matrixsize = randomGenerator.nextInt(1) + 5;
         assertTrue((matrixsize<2 && field!=null) || (matrixsize>=2 && field!=null));
     }
 

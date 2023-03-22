@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import tetravex.core.GameField;
+import tetravex.core.GameFieldState;
 import tetravex.core.StoreField;
 
 
@@ -23,7 +24,7 @@ public class GameFieldTests {
 
     @Test
     public void isNotSolvedRightFromStart(){
-        assertTrue(!gameField.checkSolution());
+        assertTrue(!gameField.checkSolution() && gameField.getGameFieldState()== GameFieldState.PLAYING);
     }
 
     @Test
@@ -33,6 +34,32 @@ public class GameFieldTests {
         gameField.setTiles(storeField.getTiles());
         assertTrue(gameField.checkSolution());
     }
+    @Test
+    public void failedTetravex(){
+        StoreField storeField =new StoreField(matrixsize);
+        storeField.generate(matrixsize);
+        storeField.getShuffledTiles();
+        gameField.setTiles(storeField.getTiles());
+        assertTrue(!gameField.checkSolution());
+    }
+    @Test
+    public void solvedTetravexState(){
+        StoreField storeField =new StoreField(matrixsize);
+        storeField.generate(matrixsize);
+        gameField.setTiles(storeField.getTiles());
+        gameField.checkSolution();
+        assertTrue(gameField.getGameFieldState()==GameFieldState.SOLVED);
+    }
+    @Test
+    public void failedTetravexState(){
+        StoreField storeField =new StoreField(matrixsize);
+        storeField.generate(matrixsize);
+        storeField.getShuffledTiles();
+        gameField.setTiles(storeField.getTiles());
+        gameField.checkSolution();
+        assertTrue(gameField.getGameFieldState()==GameFieldState.FAILED);
+    }
+
 
 
 }

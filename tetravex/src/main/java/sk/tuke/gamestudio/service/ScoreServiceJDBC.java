@@ -1,14 +1,15 @@
 package sk.tuke.gamestudio.service;
 
 import sk.tuke.gamestudio.entity.Score;
+
 import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ScoreServiceJDBC implements ScoreService {
     public static final String URL = "jdbc:postgresql://localhost/gamestudio";
-
     public static final String USER = "postgres";
     public static final String PASSWORD = "longboardOK";
     public static final String SELECT = "SELECT game, player, points, playedOn FROM score WHERE game = ? ORDER BY points DESC LIMIT 10";

@@ -1,8 +1,5 @@
 package sk.tuke.gamestudio.entity;
 
-
-import sk.tuke.gamestudio.service.CommentService;
-
 import java.util.Date;
 
 public class Comment {
