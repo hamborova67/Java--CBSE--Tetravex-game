@@ -2,6 +2,7 @@ package sk.tuke.gamestudio.service;
 
 import sk.tuke.gamestudio.entity.Score;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -20,11 +21,14 @@ public class ScoreServiceJPA implements ScoreService {
 
     @Override
     public List<Score> getTopScores(String game) {
-        var scores = entityManager.createQuery("select s from Score s where s.game = :game order by s.points desc", Score.class)
-                .setParameter("game", game)
-                .setMaxResults(10)
-                .getResultList();
-        return scores;
+
+            return entityManager.createQuery("select s from Score s where s.game = :game order by s.points desc", Score.class)
+                    .setParameter("game", game)
+                    .setMaxResults(10)
+                    .getResultList();
+
+
+
     }
 
     @Override

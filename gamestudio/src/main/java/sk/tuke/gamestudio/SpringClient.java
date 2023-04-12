@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import org.springframework.context.annotation.FilterType;
 import sk.tuke.gamestudio.game.tetravex.consoleUI.ConsoleUI;
+import sk.tuke.gamestudio.server.webservice.ScoreServiceRest;
 import sk.tuke.gamestudio.service.*;
 
 
@@ -34,18 +35,19 @@ public class SpringClient {
 
     @Bean
     public ScoreService scoreService() {
-        return new ScoreServiceJPA();
+        return new ScoreServiceRestClient();
     }
     // 1 1 1 1 2 1 2 1 1 2 1 2 2 2 2 2
 
     @Bean
     public RatingService ratingService(){
 
-        return new RatingServiceJPA();
+        return new RatingServiceRestClient();
     }
     @Bean
     public CommentService commentService(){
-        return new CommentServiceJPA();
+       // return new CommentServiceJPA();
+        return new CommentServiceRestClient();
     }
 
 }

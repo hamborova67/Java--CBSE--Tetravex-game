@@ -44,10 +44,16 @@ public class RatingServiceJPA implements RatingService{
 
     @Override
     public int getRating(String game, String player) throws RatingException {
-        return entityManager.createQuery("select s from Rating s where game = :game and player =:player")
-                .setParameter("game",game)
-                .setParameter("player",player)
-                .getFirstResult();
+        try{
+            return (int) entityManager.createNativeQuery("select s.rating from Rating s where game = :game and player =:player")
+                    .setParameter("game",game)
+                    .setParameter("player",player)
+                    .getSingleResult();
+        }  catch (NoResultException n){
+            return -1;
+        }
+
+
     }
 
     @Override

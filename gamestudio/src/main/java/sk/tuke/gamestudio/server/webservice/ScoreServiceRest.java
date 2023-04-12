@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/score")
 public class ScoreServiceRest {
-    private final ScoreService scoreService;
+    private ScoreService scoreService;
 
     public ScoreServiceRest(ScoreService scoreService) {
         this.scoreService = scoreService;
