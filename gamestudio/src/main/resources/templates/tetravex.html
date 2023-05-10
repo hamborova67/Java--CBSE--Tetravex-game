@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gamestudio</title>
+    <link rel="stylesheet" href="/css/tetravex.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Add a background image */
+        body {
+            background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Add some padding to the header and footer */
+        header, footer {
+            padding: 20px;
+        }
+        /* Center the text in the header and footer */
+        header h1, footer p {
+            text-align: center;
+            color: white;
+        }
+        /* Set the background color of the navbar */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* Set the text color of the navbar links */
+        .navbar .nav-link {
+            color: white;
+        }
+        /* Set the background color of the container */
+        .container {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        /* Set the text color of the container */
+        .container h2, .container ol li {
+            color: #555;
+        }
+    </style>
+</head>
+
+
+<body>
+<!-- Header -->
+<header class="bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>TETRAVEX GAME</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/tetravex/new">NEW GAME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://localhost:8080/">LOGIN</a>
+        </li>
+        </ul>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+
+            SCORE:
+            <span th:utext="${@tetravexController.getScore}"></span>
+
+            <span th:utext="${@tetravexController.play}"></span>
+
+        </div>
+        <div class="col-lg-6">
+            <h2 class="text-center">Scores</h2>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="score: ${scores}">
+                            <td th:text="${score.player}"></td>
+                            <td th:text="${score.points}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="mb-4">Comments</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-3"><strong>Player</strong></div>
+                            <div class="col-md-6"><strong>Comment</strong></div>
+                            <div class="col-md-3"><strong>Commented On</strong></div>
+                        </div>
+                    </li>
+                    <li class="list-group-item" th:each="comment: ${comments}">
+                        <div class="row">
+                            <div class="col-md-3" th:text="${comment.player}"></div>
+                            <div class="col-md-6" th:text="${comment.comment}"></div>
+                            <div class="col-md-3" th:text="${comment.commentedOn}"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <span th:utext="${@tetravexController.commenting}" class="d-block"></span>
+            </div>
+            <div class="col-md-4 offset-md-4">
+                <span th:utext="${@tetravexController.rating}" class="d-block"></span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+<footer class="bg-dark text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>&copy; 2023 TetravexWebsite</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>

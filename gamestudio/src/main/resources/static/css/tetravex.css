@@ -1,0 +1,156 @@
+@CHARSET "UTF-8";
+
+.draggable {
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    float: left;
+    margin: 0;
+    cursor: pointer;
+}
+.droppable { width: 55px; height: 55px; padding: 0; float: left; margin: 0; }
+.ui-state-active { background:green; }
+
+.up0 {
+    background: url('../images/tetravex/up0.gif') no-repeat;
+}
+
+.up1 {
+    background: url('../images/tetravex/up1.gif') no-repeat;
+}
+.up2 {
+    background: url('../images/tetravex/up2.gif') no-repeat;
+}
+.up3 {
+    background: url('../images/tetravex/up3.gif') no-repeat;
+}
+.up4 {
+    background: url('../images/tetravex/up4.gif') no-repeat;
+}
+.up5 {
+    background: url('../images/tetravex/up5.gif') no-repeat;
+}
+.up6 {
+    background: url('../images/tetravex/up6.gif') no-repeat;
+}
+.up7 {
+    background: url('../images/tetravex/up7.gif') no-repeat;
+}
+.up8 {
+    background: url('../images/tetravex/up8.gif') no-repeat;
+}
+.up9 {
+    background: url('../images/tetravex/up9.gif') no-repeat;
+}
+
+.right0 {
+    background: url('../images/tetravex/right0.gif') no-repeat;
+}
+
+.right1 {
+    background: url('../images/tetravex/right1.gif') no-repeat;
+}
+.right2 {
+    background: url('../images/tetravex/right2.gif') no-repeat;
+}
+.right3 {
+    background: url('../images/tetravex/right3.gif') no-repeat;
+}
+.right4 {
+    background: url('../images/tetravex/right4.gif') no-repeat;
+}
+.right5 {
+    background: url('../images/tetravex/right5.gif') no-repeat;
+}
+.right6 {
+    background: url('../images/tetravex/right6.gif') no-repeat;
+}
+.right7 {
+    background: url('../images/tetravex/right7.gif') no-repeat;
+}
+.right8 {
+    background: url('../images/tetravex/right8.gif') no-repeat;
+}
+.right9 {
+    background: url('../images/tetravex/right9.gif') no-repeat;
+}
+
+.down0 {
+    background: url('../images/tetravex/down0.gif') no-repeat;
+}
+.down1 {
+    background: url('../images/tetravex/down1.gif') no-repeat;
+}
+.down2 {
+    background: url('../images/tetravex/down2.gif') no-repeat;
+}
+.down3 {
+    background: url('../images/tetravex/down3.gif') no-repeat;
+}
+.down4 {
+    background: url('../images/tetravex/down4.gif') no-repeat;
+}
+.down5 {
+    background: url('../images/tetravex/down5.gif') no-repeat;
+}
+.down6 {
+    background: url('../images/tetravex/down6.gif') no-repeat;
+}
+.down7 {
+    background: url('../images/tetravex/down7.gif') no-repeat;
+}
+.down8 {
+    background: url('../images/tetravex/down8.gif') no-repeat;
+}
+.down9 {
+    background: url('../images/tetravex/down9.gif') no-repeat;
+}
+.left0 {
+    background: url('../images/tetravex/left0.gif') no-repeat;
+}
+.left1 {
+    background: url('../images/tetravex/left1.gif') no-repeat;
+}
+.left2 {
+    background: url('../images/tetravex/left2.gif') no-repeat;
+}
+.left3 {
+    background: url('../images/tetravex/left3.gif') no-repeat;
+}
+.left4 {
+    background: url('../images/tetravex/left4.gif') no-repeat;
+}
+.left5 {
+    background: url('../images/tetravex/left5.gif') no-repeat;
+}
+.left6 {
+    background: url('../images/tetravex/left6.gif') no-repeat;
+}
+.left7 {
+    background: url('../images/tetravex/left7.gif') no-repeat;
+}
+.left8 {
+    background: url('../images/tetravex/left8.gif') no-repeat;
+}
+.left9 {
+    background: url('../images/tetravex/left9.gif') no-repeat;
+}
+
+.inner {
+    width: 55px;
+    height: 55px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+pre {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+table tr tr {
+    margin: 0;
+    padding: 0;
+}

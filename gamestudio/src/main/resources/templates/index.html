@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamestudio</title>
+    <link rel="stylesheet" href="/css/tetravex.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Add a background image */
+        body {
+            background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Add some padding to the header and footer */
+        header, footer {
+            padding: 20px;
+        }
+        /* Center the text in the header and footer */
+        header h1, footer p {
+            text-align: center;
+            color: white;
+        }
+        /* Set the background color of the navbar */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* Set the text color of the navbar links */
+        .navbar .nav-link {
+            color: white;
+        }
+        /* Set the background color of the container */
+        .container {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        /* Set the text color of the container */
+        .container h2, .container ol li {
+            color: #555;
+        }
+    </style>
+</head>
+
+
+<body>
+<!-- Header -->
+<header class="bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>TETRAVEX GAME</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/tetravex/new">NEW GAME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://localhost:8080/">LOGIN</a>
+        </li>
+    </ul>
+</nav>
+<main layout:fragment="content" class="container">
+    <h2>Our favorite games:</h2>
+    <ol>
+        <li><a href="/tetravex">Tetravex</a></li>
+    </ol>
+
+    <!--/*@thymesVar id="userController" type="sk.tuke.gamestudio.server.controller.UserController"*/-->
+    <div class="mt-4" th:if="not ${@userController.logged}">
+        <p>Please login to save score, comment and rate our games!</p>
+        <form action="/login" method="post" class="form-inline">
+            <div class="form-group mr-2">
+                <label for="login" class="mr-2">Login:</label>
+                <input type="text" class="form-control" id="login" name="login">
+            </div>
+            <div class="form-group mr-2">
+                <label for="password" class="mr-2">Password:</label>
+                <input type="password" class="form-control" id="password" name="passwd">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-dark text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>&copy; 2023 TetravexWebsite</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>
