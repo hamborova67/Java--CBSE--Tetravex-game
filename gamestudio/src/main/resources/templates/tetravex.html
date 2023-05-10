@@ -127,6 +127,8 @@
                 <span th:utext="${@tetravexController.commenting}" class="d-block"></span>
             </div>
             <div class="col-md-4 offset-md-4">
+                <p>Averate rating is:</p>
+                <div th:text="${ratings}"></div>
                 <span th:utext="${@tetravexController.rating}" class="d-block"></span>
             </div>
         </div>

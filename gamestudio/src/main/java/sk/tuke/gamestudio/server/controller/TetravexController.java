@@ -40,10 +40,10 @@ public class TetravexController {
 
     @RequestMapping
    public String tetravex(@RequestParam(required = false) Integer row1, @RequestParam(required = false) Integer col1,@RequestParam(required = false) Integer row2, @RequestParam(required = false) Integer col2, Model model,@RequestParam(required = false) String comment,@RequestParam(required = false) String rating){
-
+        model.addAttribute("ratings",ratingService.getAverageRating("tetravex"));
         if(userController.isLogged()){
             model.addAttribute("scores",scoreService.getTopScores("tetravex"));
-            model.addAttribute("ratings",ratingService.getAverageRating("tetravex"));
+           // model.addAttribute("ratings",ratingService.getAverageRating("tetravex"));
             model.addAttribute("comments",commentService.getComments("tetravex"));
             if(comment!=null){
                 commentService.addComment(new Comment("tetravex",userController.getLoggedUser().getLogin(),comment,new Date()));
@@ -112,6 +112,7 @@ public class TetravexController {
    @RequestMapping("/new")
    public String newGame(){
        this.storeField.generate(matrixsize);
+       this.storeField.getShuffledTiles();
        this.gameField.generate(matrixsize);
        this.score = 100;
        return "tetravex";
@@ -130,17 +131,18 @@ public class TetravexController {
             sb.append("vyhral si.");
             if(userController.isLogged()){
                 scoreService.addScore(new Score("tetravex",userController.getLoggedUser().getLogin(),this.score, new Date()));
-                this.score=100;
-                newGame();
             }
+            this.score=100;
+            newGame();
         }
         if(gameField.getGameFieldState()==GameFieldState.FAILED){
             sb.append("prehral si.");
             if(userController.isLogged()){
                 scoreService.addScore(new Score("tetravex",userController.getLoggedUser().getLogin(),this.score, new Date()));
-                this.score=100;
-                newGame();
+
             }
+            this.score=100;
+            newGame();
         }
         return sb.toString();
     }
